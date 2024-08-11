@@ -1,0 +1,149 @@
+%%% Specification of all necessary stuff %%%
+% ========================================
+
+
+% Specification of the author and consultants
+\newcommand{\autor}{David Dobáš}   % vyplňte své jméno a příjmení (s akademickým titulem, máte-li jej)
+\newcommand{\woman}{} % pokud jste ŽENA, ZMĚŇTE na: ...{\woman}{a} (je to do Prohlášení)
+
+\newcommand{\vedouci}{doc. Ing. Mgr. Petr Jizba, Ph.D.} % vyplňte jméno a příjmení vedoucího práce, včetně titulů, např.: Doc. Ing. Ivo Malý, Ph.D.
+\newcommand{\pracovisteVed}{Katedra fyziky, Fakulta jaderná a fyzikálně inženýrská} % ZMĚŇTE, pokud vedoucí Vaší práce není z KSI
+\newcommand{\konzultant}{title. Talkative Consultant} % POKUD MÁTE určeného konzultanta, NAPIŠTE jeho jméno a příjmení
+\newcommand{\pracovisteKonz}{Very consultive Group} % POKUD MÁTE konzultanta, NAPIŠTE jeho pracoviště
+\newcommand{\konzultantt}{title. Awesome SecondOne} % POKUD MÁTE určeného konzultanta, NAPIŠTE jeho jméno a příjmení
+\newcommand{\pracovisteKonzt}{The second Group} % POKUD MÁTE konzultanta, NAPIŠTE jeho pracoviště
+
+% Specification of thesis -- copy and paste from your task list
+\newcommand{\nazevcz}{Rekonstrukce komplexních sítí s využitím renormalizační teorie}
+\newcommand{\nazeven}{Complex networks reconstruction using renormalization theory}
+\newcommand{\rok}{2024}  % rok odevzdání práce (jen rok odevzdání, nikoli celý akademický rok!)
+\newcommand{\skola}{\cvut}
+\newcommand{\fakulta}{\fjfi}
+\newcommand{\katedra}{\kf}
+\newcommand{\kde}{Praze} % studenti z Děčína ZMĚNÍ na: "Děčíně" (doplní se k "prohlášení")
+\newcommand{\kdeen}{Prague}
+\newcommand{\program}{Aplikace přírodních věd} % změňte, pokud máte jiný stud. program
+\newcommand{\obor}{Matematická fyzika} % změňte, pokud máte jiný obor
+\newcommand{\oboren}{Mathematical Physics}
+%% LANGUAGE SETTINGS
+% Uncomment exactly one block
+
+%==================
+%% CZECH
+%\usepackage[czech]{babel} % česky psaná práce, typografická pravidla. Překládejte pomocí "latex.exe" nebo "pdflatex.exe"
+
+% Uncomment exactly one 
+%\newcommand{\druh}{Bakalářská práce} 
+%\newcommand{\druh}{Výzkumný úkol} 
+%\newcommand{\druh}{Diplomová práce}
+
+% Intendation
+\usepackage{indentfirst}
+\newcommand{\stdindent}{\setlength{\parindent}{2em}}
+\newcommand{\stdskip}{\setlength{\parskip}{0em}}
+%==================
+
+%==================
+%% SLOVAK
+% \usepackage[slovak]{babel} 
+%==================
+
+
+%==================
+%% ENGLISH
+\usepackage[english]{babel}
+
+% Uncomment exactly one 
+\newcommand{\druh}{Výzkumný úkol} 
+\newcommand{\druhen}{Research project} 
+%\newcommand{\druh}{Research project} 
+%\newcommand{\druh}{Master thesis}
+
+% Intendation
+%\newcommand{\stdindent}{\setlength{\parindent}{0em}}
+%\newcommand{\stdskip}{\setlength{\parskip}{1em}}
+%==================
+
+
+
+% Insert scan of your task -- put it in "img" folder -- 2 separate PDFs recommended
+\newcommand{\skenZadaniPredni}{specimen1.pdf}
+\newcommand{\skenZadaniZadni}{specimen2.pdf}
+
+% Keywords in zde NAPIŠTE česky max. 5 klíčových slov AND translate them into english
+\newcommand{\klicova}{Komplexní sítě, rekonsturkce, renormalizace, škálová invariance}  
+\newcommand{\keyword}{Complex networks, reconstruction, renormalization, scale invariance}
+\newcommand{\abstrCZ}{% zde NAPIŠTE abstrakt v češtině (cca 7 vět, min. 80 slov)
+Problém rekonstrukce komplexních sítí se objevuje v situaci, kdy chceme studovat vlastnosti nějaké komplexní sítě, ale neznáme plně její strukturu. V takovém případě je třeba hledat metody, jak jen s využitím částečné informace najít věrohodnou rekonstrukci dané sítě, a následně na této rekonstruované síti zkoumat vlastnosti našeho zájmu. V této práci navrhujeme pro rekonstrukci komplexních sítí využít tzv. Škálově-invariantní model, který má potenciál oproti jiným metodám lépe popisovat sítě na různých škálách. Narážíme na problém příliš mnoha izolovaných vrcholů, který řešíme vhodnou modifikací původního modelu a návrhem strategie vzorkování pomocí Metropolis-Hastingsova algoritmu. 
+}
+\newcommand{\abstrEN}{% zde NAPIŠTE abstrakt v angličtině
+The problem of complex network reconstruction arises in situations where we want to study the properties of a complex network but do not fully know its structure. In such cases, it is necessary to seek methods that use only partial information to find a credible reconstruction of the given network, and then study the properties of interest on this reconstructed network. In this work, we propose to use the so-called Scale-Invariant Model for the reconstruction of complex networks, which has the potential to better describe networks at various scales compared to other methods. We encounter the problem of too many isolated vertices, which we solve by appropriately modifying the original model and proposing a sampling strategy using the Metropolis-Hastings algorithm.
+}
+\newcommand{\prohlaseni}{% text prohlášení můžete mírně upravit
+Prohlašuji, že jsem svou bakalářskou práci vypracoval\woman{} samostatně a použil\woman{} jsem pouze podklady (literaturu, projekty, SW atd.) uvedené v přiloženém seznamu.
+} 
+
+\newcommand{\prohlasenien}{% text prohlášení můžete mírně upravit
+I hereby declare, that I wrote this research project on my own and using the cited resources only.
+
+I agree with the usage of this thesis in the purport of the §60 Act 121/2000 (Copyright Act).
+} 
+
+\newcommand{\podekovani}{%Podekovani se doporucuje neprehanet
+I would like to thank prof. Diego Garlaschelli for introducing me to the intriguing field of network reconstruction and to both him and his PhD candidate Jingjing Wang for our productive discussions. I also thank Doc. Petr Jizba for his valuable consultations, feedback, and for his support during my studies abroad.
+% NEBO:
+% Děkuji vedoucímu práce doc. Pafnutijovi Snědldítětikaši, Ph.D. za neocenitelné rady a pomoc při tvorbě bakalářské práce.
+}
+
+% Page style -- uncomment exactly one
+% 
+% Style 1 -- fancy -- nice looking, but unfortunatelly, not debugged yet :(
+\pagestyle{fancy}
+\fancyfoot{}
+\fancyhead[RO,LE]{\thepage}
+\fancyhead[RE]{\nouppercase{\leftmark}}
+\fancyhead[LO]{\nouppercase{\rightmark}}
+
+% Style 2 -- plain
+% \pagestyle{plain}      % stránky číslované dole uprostřed
+
+
+% Page numbering
+\pagenumbering{arabic} % číslování stránek arabskými číslicemi
+
+% Depth of table of contents (ToC) (2 is RECOMMENDED, other are believed to be confusing and poorly arranged!
+% 0 = only parts and chapters are included in ToC
+% 1 = parts, chapters, sections
+% 2 = parts, chapters, sections, subsections
+% 3 = parts, chapters, sections, subsections, subsubsections
+\setcounter{tocdepth}{2}
+
+
+% Margins 
+\topmargin=-10mm      % horní okraj trochu menší
+\textwidth=150mm      % šířka textu na stránce
+\textheight=250mm     % "výška" textu na stránce
+
+
+% Font size
+\renewcommand\cftchapfont{\small\bfseries}
+\renewcommand\cftsecfont{\footnotesize}
+\renewcommand\cftsubsecfont{\footnotesize}
+
+\renewcommand\cftchappagefont{\small\bfseries}
+\renewcommand\cftsecpagefont{\footnotesize}
+\renewcommand\cftsubsecpagefont{\footnotesize}
+
+% Spacing
+\frenchspacing % za větou bude mezislovní mezera (v anglických textech je mezera za větou delší)
+\widowpenalty=1000 % "síla" zákazu vdov (= jeden řádek ze začátku odstavce na konci stránky)
+\clubpenalty=1000 % "síla" zákazu sirotků (= jeden řádek/slovo z konce odstavce samostatně na začátku stránky)
+\brokenpenalty=1000 % "síla" zákazu zlomu stránky za řádkem, který má na konci rozdělené slovo
+
+% Custom
+\hypersetup{colorlinks=false}
+\def\equationautorefname~#1\null{(#1)\null}
+
+\DeclareSymbolFont{boldoperators}{OT1}{cmr}{bx}{n}
+\SetSymbolFont{boldoperators}{bold}{OT1}{cmr}{bx}{n}
+\edef\bar{\unexpanded{\protect\mathaccentV{bar}}\number\symboldoperators16}
