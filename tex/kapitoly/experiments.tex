@@ -1,7 +1,7 @@
 \chapter{Experiments}
 Now let us present a new approach, namely using the Scale-Invariant Model for network reconstruction. Where can this be useful? We saw, that the Scale-Invariant model describes networks consistently at different scales. Let us imagine a following situation: we want to study systemic risk in an interbank loan network. We know information about banks in the Czech Republic, therefore each of them can form a node in our network model, however, we have no information about banks in China, only their total exposure to Czech banks and vice versa. Therefore, China would only form one node. We clearly have two very different scales present in our network. Ordinary network models might handle this situation inaccurately, however the Scale-invariant model stays consistent even when there are multiple different scales present in the same network.
 
-Let us formulate the problem in terms of interbank loan network. Assume we have $N$ banks labeled $1,\dots N$. We construct a liability matrix in the following way: if bank $i$ a lends money to bank $j$, then the amount lent will be the matrix entry $w_{ij}$. Thus, we obtain a weight-matrix $\hat{W}$ and a corresponding weighted directed graph. We denote the total amount lent by bank $i$ to all other banks (its assets) as $x_i \equiv \sum_{j=1} w_{ij} \equiv hat{s}^{out}$. We also denote the total amount which was lent \textit{to} bank $i$ (its liabilities) as $y_i \equiv \sum_{j=1}^N w_{ji} \equiv \hat{s}^{in}$. These total assets and liabilities are usually the only information disclosed publicly, while the details of the liability matrix are not known. 
+Let us formulate the problem in terms of interbank loan network. Assume we have $N$ banks labeled $1,\dots N$. We construct a liability matrix in the following way: if bank $i$ a lends money to bank $j$, then the amount lent will be the matrix entry $w_{ij}$. Thus, we obtain a weight-matrix $\hat{W}$ and a corresponding weighted directed graph. We denote the total amount lent by bank $i$ to all other banks (its assets) as $x_i \equiv \sum_{j=1} w_{ij} \equiv \hat{s}^{out}$. We also denote the total amount which was lent \textit{to} bank $i$ (its liabilities) as $y_i \equiv \sum_{j=1}^N w_{ji} \equiv \hat{s}^{in}$. These total assets and liabilities are usually the only information disclosed publicly, while the details of the liability matrix are not known. 
 
 \section{Network reconstruction using the original SIM}
 
@@ -53,7 +53,7 @@ Figure \ref*{fig:deg_strengths} shows the log-log plots of degree and strength d
 \end{figure}
 
 \subsection{Reconstruction}
-Now we can follow the recipe shown above. First, we need to find the value of $z$, that will reproduce the number of links correctly. We solve the equation \ref{eq:z_fit} using bisection method. To avoid numerical problems, we divide all strengths by $10^6$, since the largest strength in our dataset is $44\mathpunct{}337\mathpunct{}603$. By that, we obtained $z \doteq 0.2837$.
+Now we can follow the recipe shown above\footnote{All the results and implementation can be found and replicated at \href{https://github.com/DavidDobas/SIM\_network\_reconstruction/blob/main/Results.ipynb}{https://github.com/DavidDobas/SIM\_network\_reconstruction/blob/main/Results.ipynb}}. First, we need to find the value of $z$, that will reproduce the number of links correctly. We solve the equation \ref{eq:z_fit} using bisection method. To avoid numerical problems, we divide all strengths by $10^6$, since the largest strength in our dataset is $44\mathpunct{}337\mathpunct{}603$. By that, we obtained $z \doteq 0.2837$.
 
 Next, we generate an ensemble of 1000 graphs using the Scale-invariant model. The first consistency check is to find the average number of links in our ensemble. That is, for our ensemble, $19\mathpunct{}198.329$, which is close enough to the $19\mathpunct{}199$ edges of the original ensemble.
 
@@ -168,7 +168,7 @@ The conditional probability of the $i$-th row (which we denote $\{a_{ij}\}_{j=1}
 
 How to implement sampling? In our case, it proved to be computationally feasible to sample each row as a whole from the original model and only accept it, when the condition of at least one present edge is met. This is equivalent to sampling according to the conditional probabilities given by equation \ref*{eq:corrected_naive_model}. 
 
-Another flaw of the naive model is that we used the original value of $z$, which is, however, not valid anymore. The value of $z$ need to fit the density (or number of edges) of the empirical network, so if we change the model, we need to find an according value of $z$. This can be done analytically. In equation \ref*{eq:corrected_naive_model}, we see that the difference with the original SIM is in the denominator. The expected number of links in each row will be therefore be, compared to the original model, increased due to the division by this denominator. 
+Another flaw of the naive model is that we used the original value of $z$, which is, however, not valid anymore. The value of $z$ needd to fit the density (or number of edges) of the empirical network, so if we change the model, we need to find an according value of $z$. This can be done analytically. In equation \ref*{eq:corrected_naive_model}, we see that the difference with the original SIM is in the denominator. The expected number of links in each row will be therefore be, compared to the original model, increased due to the division by this denominator. 
 
 
 
@@ -243,7 +243,7 @@ This corrected model still depends on the value of $z$. We can not choose the sa
 
 In this sense, we fit $z^*$ in such a way to replicate the number of links well. In the original SIM, we demanded
 \begin{equation}
-    L_0 = \langle L \rangle = \sum_{i,j} p_{ij} = \sum_{i,j} P(a_{ij} = 1) = \sum_{i,j} 1-\exp{(-z^*x_iy_j)}
+    \hat{L} = \langle L \rangle = \sum_{i,j} p_{ij} = \sum_{i,j} P(a_{ij} = 1) = \sum_{i,j} 1-\exp{(-z^*x_iy_j)}
 \end{equation}
 In the corrected model, things get more complicated. 
 Let us first denote the marginal probability (denoted as $p_{ij}^M$) of every edge $a_{ij}$ as
@@ -260,7 +260,7 @@ Then we get
 \end{align}
 which means, that instead of the probabilities from the original model, we should use marginal probabilities induced from our corrected model. However, the marginal probabilities are difficult to compute analytically. 
 
-As an approximative workaround, we can find the value of $z^*$ by bisection on simulations. Since the number of links is on average increasing function of $z$, we can start with some guess, generate a corresponding ensemble, compute the average number of links, and if it's higher than the demanded number of links of the empirical network, we know we need to decrease $z$. Otherwise,x we increase it. Therefore, we can find value of $z^*$ using bisection to a demanded precision. The precision is not arbitrary, however, since there is a estimation error present, as we only estimate the number of links on the generated ensemble.
+As an approximative workaround, we can find the value of $z^*$ by bisection on simulations. Since the number of links is on average increasing function of $z$, we can start with some guess, generate a corresponding ensemble, compute the average number of links, and if it's higher than the demanded number of links of the empirical network, we know we need to decrease $z$. Otherwise, we increase it. Therefore, we can find value of $z^*$ using bisection to a demanded precision. The precision is not arbitrary, however, since there is a estimation error present, as we only estimate the number of links on the generated ensemble.
 
 \subsubsection{Assigning weights}
 The question remains, how to assign weights in this case. Our original model does it in the following way:
@@ -281,7 +281,7 @@ Therefore, we just need to assign $w(x_i, y_j) = \frac{x_i y_j}{W p_{ij}^M}$, be
 \begin{equation}
     \langle s_i^{out} \rangle = \sum_{j=1}^{N} w(x_i, y_j) p_{ij}^M = \sum_{j=1}^{N} \frac{x_i y_j}{W p_{ij}^M} p_{ij}^M = x_i \frac{\sum_{j=1}^{N} y_j}{W} = x_i
 \end{equation}
-which means we obtain the correct out-strength $x_i$ on average. This means we only need to obtain the marginal probabilities for each link to assign weights. As we know from estimation of $z$, we know it is hard to compute this probability analytically. However, we can estimate it as well. 
+which means we obtain the correct out-strength $x_i$ on average. This means we only need to obtain the marginal probabilities for each link to assign weights. As we know from estimation of $z$, it is hard to compute this probability analytically. However, we can estimate it as well. 
 
 We generate an ensemble using our corrected model. This yields an ensemble of average matrices, from which we can compute an average adjacency matrix. Entries of this average adjacency matrix can be used as estimates of the marginal probabilities.
 
